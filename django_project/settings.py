@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-y%d0p!@#-7pheb(g$lv)b8u9twjwu_)^@n^3j=j20a29&=gj!p
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'web-production-3024.up.railway.app', 'django-railway-production-2af8.up.railway.app']
+
 
 
 # Application definition
@@ -38,12 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'whitenoise.runserver_nostatic',
     'blog',
     'home'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -124,6 +126,15 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'blog/static'),
 ]
+
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'web-production-3024.up.railway.app', 'django-railway-production-2af8.up.railway.app']
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
